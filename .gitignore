@@ -45,3 +45,14 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+
+# ===== 新增：安全与临时文件 ===== 
+nohup.out
+logs/
+*.log
+*.pyc
+__pycache__/
+.pytest_cache/
+.env
+*.local
+
