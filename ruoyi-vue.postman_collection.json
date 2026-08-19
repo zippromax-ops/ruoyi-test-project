@@ -1,0 +1,294 @@
+{
+  "info": {
+    "_postman_id": "30568290-001b-4e7b-a529-b9268e126115",
+    "name": "ruoyi-vue",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57229177"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "uuid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"uuid\", jsonData.uuid);\r",
+                  "    // 打印 data:image 链接，方便复制到浏览器查看验证码图片\r",
+                  "    console.log(\"data:image/png;base64,\" + jsonData.img);\r",
+                  "    if (jsonData.captchaEnabled === true) {\r",
+                  "        pm.environment.set(\"uuid\", jsonData.uuid);\r",
+                  "        console.log(\"✅ 获取验证码成功，uuid:\", jsonData.uuid);\r",
+                  "        // 验证码图片是 base64 格式，可以手动解码查看或直接使用\r",
+                  "    } else {\r",
+                  "        console.log(\"验证码未开启\");\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/captchaImage",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "captchaImage"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// 提取 token\r",
+                  "if (pm.response.code === 200) {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"token\", jsonData.data.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin\",\r\n\"password\":\"admin123\",\r\n\"code\":\"\",\r\n\"uuid\":\"{{uuid}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}login",
+              "host": [
+                "{{base_url}}login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User_Management",
+      "item": [
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// 提取 token\r",
+                  "if (pm.response.code === 200) {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"token\", jsonData.data.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}login",
+              "host": [
+                "{{base_url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "search_userID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImRkZWEyM2M1LTczZDgtNDRlYi1iYmZiLTgzZjJmYmNiMjViMCJ9.bAzB18Iykv0T7NaICuRyvRew41iCziZmMn8nu95lsUpC_SSUDjKeK2g10wJWLSaMajyUgpjPic7HbYDACHMvjA",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{test-controller_url}}1",
+              "host": [
+                "{{test-controller_url}}1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "search_list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImRkZWEyM2M1LTczZDgtNDRlYi1iYmZiLTgzZjJmYmNiMjViMCJ9.bAzB18Iykv0T7NaICuRyvRew41iCziZmMn8nu95lsUpC_SSUDjKeK2g10wJWLSaMajyUgpjPic7HbYDACHMvjA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{test-controller_url}}list",
+              "host": [
+                "{{test-controller_url}}list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "append",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImRkZWEyM2M1LTczZDgtNDRlYi1iYmZiLTgzZjJmYmNiMjViMCJ9.bAzB18Iykv0T7NaICuRyvRew41iCziZmMn8nu95lsUpC_SSUDjKeK2g10wJWLSaMajyUgpjPic7HbYDACHMvjA",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{test-controller_url}}save?mobile=13344445555&password=123456&userId=3&username=test",
+              "host": [
+                "{{test-controller_url}}save"
+              ],
+              "query": [
+                {
+                  "key": "mobile",
+                  "value": "13344445555"
+                },
+                {
+                  "key": "password",
+                  "value": "123456"
+                },
+                {
+                  "key": "userId",
+                  "value": "3"
+                },
+                {
+                  "key": "username",
+                  "value": "test"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImRkZWEyM2M1LTczZDgtNDRlYi1iYmZiLTgzZjJmYmNiMjViMCJ9.bAzB18Iykv0T7NaICuRyvRew41iCziZmMn8nu95lsUpC_SSUDjKeK2g10wJWLSaMajyUgpjPic7HbYDACHMvjA",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mobile\": \"13312341234\",\r\n  \"password\": \"666666\",\r\n  \"userId\": 3,\r\n  \"username\": \"test\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{test-controller_url}}update",
+              "host": [
+                "{{test-controller_url}}update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImRkZWEyM2M1LTczZDgtNDRlYi1iYmZiLTgzZjJmYmNiMjViMCJ9.bAzB18Iykv0T7NaICuRyvRew41iCziZmMn8nu95lsUpC_SSUDjKeK2g10wJWLSaMajyUgpjPic7HbYDACHMvjA",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{test-controller_url}}3",
+              "host": [
+                "{{test-controller_url}}3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
