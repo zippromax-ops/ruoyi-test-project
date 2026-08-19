@@ -1,5 +1,8 @@
 # RuoYi-Vue 后台管理系统 - 手工测试项目
 
+> 💡 本仓库包含 RuoYi-Vue 源码 + 手工测试用例。
+> RuoYi 原始 README 已重命名为 `README_RuoYi_Original.md`。
+
 ## 📖 项目简介
 本项目是针对 RuoYi-Vue 开源后台管理系统进行的手工功能测试实践，旨在通过系统的测试流程，验证系统核心模块的稳定性和功能性。
 
